@@ -87,10 +87,10 @@ body {
   text-decoration: none;
   color: black;
   padding: 10px;
-  /* margin-bottom: 5px; */
+  margin-bottom: 5px;
   width: 100%;
-  border-top: 1px solid #ff00001c;
-  border-bottom: 1px solid #ff00001c;
+  /* border-top: 1px solid #ff00001c;
+  border-bottom: 1px solid #ff00001c; */
 }
 
 /* 
