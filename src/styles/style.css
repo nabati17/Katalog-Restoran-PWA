@@ -93,6 +93,10 @@ body {
   border-bottom: 1px solid #ff00001c; */
 }
 
+.app-bar .app-bar__navigation ul li a:hover {
+  color: #db0000;
+}
+
 /* 
   Hero
 */

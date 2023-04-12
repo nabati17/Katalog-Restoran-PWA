@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 import CONFIG from '../../globals/config';
 
 const createRestaurantDetailTemplate = (restaurant) => `
@@ -20,9 +21,10 @@ const createRestaurantDetailTemplate = (restaurant) => `
     <h3>Description</h3>
     <p>${restaurant.description}</p>
   </div>
+
   <div class="restaurant__description">
   <h3>Customer Reviews</h3>
-  <p>${restaurant.customerReviews.map((customer) => customer.review).join(' | ')}</p>
+  <p>${restaurant.customerReviews.map((customer) => customer.name + '<br>' + customer.review + '<br>' + customer.date).join('<br><br>')}</p>
 </div>
 `;
 
