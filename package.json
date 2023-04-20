@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "idb": "^7.0.1",
+    "karma": "^6.4.1",
     "karma-jasmine": "^5.1.0",
     "karma-sourcemap-loader": "^0.4.0",
     "karma-webpack": "^5.0.0",

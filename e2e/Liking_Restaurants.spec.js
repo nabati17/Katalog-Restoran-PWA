@@ -1,32 +1,25 @@
 /* eslint-disable no-undef */
-// eslint-disable-next-line no-undef
 const assert = require('assert');
+// const { async } = require('regenerator-runtime');
 
-// eslint-disable-next-line no-undef
-Feature('Liking Restaurants');
+Feature('Liking Restaurant');
 
-// eslint-disable-next-line no-undef
 Before(({ I }) => {
   I.amOnPage('/#/like');
 });
 
-// eslint-disable-next-line no-undef
-Scenario('showing empty liked restaurants', ({ I }) => {
-  I.seeElement('#query');
-  // I.seeElement('.query'); // membuat test menjadi gagal
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
+Scenario('showing empty liked restaurant', ({ I }) => {
+  I.seeElement('.restaurants');
+  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
 });
 
-// eslint-disable-next-line no-undef
 Scenario('liking one restaurant', async ({ I }) => {
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
+  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
 
   I.amOnPage('/');
-
-  I.seeElement('.restaurant__title a');
-
-  // eslint-disable-next-line no-undef
-  const firstRestaurant = locate('.restaurant__title a').first();
+  pause();
+  I.seeElement('.restaurant__name a');
+  const firstRestaurant = locate('.restaurant__name').first();
   const firstRestaurantTitle = await I.grabTextFrom(firstRestaurant);
   I.click(firstRestaurant);
 
@@ -35,44 +28,34 @@ Scenario('liking one restaurant', async ({ I }) => {
 
   I.amOnPage('/#/like');
   I.seeElement('.restaurant-item');
-  const likedRestaurantTitle = await I.grabTextFrom('.restaurant__title');
+  const likedRestaurantTitle = await I.grabTextFrom('.restaurant__name');
 
   assert.strictEqual(firstRestaurantTitle, likedRestaurantTitle);
 });
 
-Scenario('searching restaurants', async ({ I }) => {
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
+Scenario('unlike restaurant', async ({ I }) => {
+  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
 
   I.amOnPage('/');
+  pause();
+  I.seeElement('.list__item a');
+  const firstRestaurant = locate('.restaurant__name').first();
+  const firstRestaurantTitle = await I.grabTextFrom(firstRestaurant);
+  I.click(firstRestaurant);
 
-  I.seeElement('.restaurant__title a');
-
-  const titles = [];
-
-  // eslint-disable-next-line no-plusplus
-  for (let i = 1; i <= 3; i++) {
-    I.click(locate('.restaurant__title a').at(i));
-    I.seeElement('#likeButton');
-    I.click('#likeButton');
-    // eslint-disable-next-line no-await-in-loop
-    titles.push(await I.grabTextFrom('.restaurant__title'));
-    I.amOnPage('/');
-  }
+  I.seeElement('#likeButton');
+  I.click('#likeButton');
 
   I.amOnPage('/#/like');
-  I.seeElement('#query');
+  I.seeElement('.restaurant-item');
+  const likedRestaurantTitle = await I.grabTextFrom('.restaurant__name');
+  I.click(locate('.restaurant__name').first());
+  I.seeElement('#likeButton');
+  I.click('#likeButton');
 
-  const searchQuery = titles[1].substring(1, 3);
-  const matchingRestaurants = titles.filter((title) => title.indexOf(searchQuery) !== -1);
+  I.amOnPage('/#/like');
+  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
+  pause();
 
-  I.fillField('#query', searchQuery);
-  I.pressKey('Enter');
-
-  const visibleLikedRestaurants = await I.grabNumberOfVisibleElements('.restaurant-item');
-  assert.strictEqual(matchingRestaurants.length, visibleLikedRestaurants);
-
-  matchingRestaurants.forEach(async (title, index) => {
-    const visibleTitle = await I.grabTextFrom(locate('.restaurant__title').at(index + 1));
-    assert.strictEqual(title, visibleTitle);
-  });
+  assert.strictEqual(firstRestaurantTitle, likedRestaurantTitle);
 });
