@@ -2,7 +2,7 @@
 import FavoriteRestaurantIdb from '../src/scripts/data/favorite-restauran-idb';
 import * as TestFactories from './helpers/testFactories';
 
-describe('Unliking A Restaurant', () => {
+describe('Unliking A Movie', () => {
   const addLikeButtonContainer = () => {
     document.body.innerHTML = '<div id="likeButtonContainer"></div>';
   };
@@ -33,7 +33,7 @@ describe('Unliking A Restaurant', () => {
 
     document.querySelector('[aria-label="Batal Sukai Restoran ini"]').dispatchEvent(new Event('click'));
 
-    expect(await FavoriteRestaurantIdb.getAllRestaurant()).toEqual([]);
+    expect(await FavoriteRestaurantIdb.getAllRestaurants()).toEqual([]);
   });
 
   it('should not throw error if the unliked restaurant is not in the list', async () => {
@@ -43,6 +43,6 @@ describe('Unliking A Restaurant', () => {
 
     document.querySelector('[aria-label="Batal Sukai Restoran ini"]').dispatchEvent(new Event('click'));
 
-    expect(await FavoriteRestaurantIdb.getAllRestaurant()).toEqual([]);
+    expect(await FavoriteRestaurantIdb.getAllRestaurants()).toEqual([]);
   });
 });
