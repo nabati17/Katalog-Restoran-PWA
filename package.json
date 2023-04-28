@@ -1,5 +1,5 @@
 {
-  "name": "movie-catalogue-lite",
+  "name": "restaurant-catalogue",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -31,7 +31,7 @@
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-webpack-plugin": "^2.4.2",
     "karma-chrome-launcher": "^3.1.1",
-    "puppeteer": "^19.9.1",
+    "puppeteer": "^19.11.1",
     "sharp": "^0.32.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.73.0",

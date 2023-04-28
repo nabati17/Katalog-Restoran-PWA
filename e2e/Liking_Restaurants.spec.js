@@ -1,26 +1,25 @@
 /* eslint-disable no-undef */
 const assert = require('assert');
-// const { async } = require('regenerator-runtime');
 
-Feature('Liking Restaurant');
+Feature('Liking Restaurants');
 
 Before(({ I }) => {
   I.amOnPage('/#/like');
 });
 
-Scenario('showing empty liked restaurant', ({ I }) => {
-  I.seeElement('.restaurants');
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
+Scenario('showing empty liked restaurants', ({ I }) => {
+  I.dontSeeElement('.restaurant-item');
 });
 
 Scenario('liking one restaurant', async ({ I }) => {
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
+  I.dontSeeElement('.restaurant-item');
 
   I.amOnPage('/');
-  pause();
-  I.seeElement('.restaurant__name a');
-  const firstRestaurant = locate('.restaurant__name').first();
-  const firstRestaurantTitle = await I.grabTextFrom(firstRestaurant);
+
+  I.seeElement('.restaurant_name a');
+
+  const firstRestaurant = locate('.restaurant_name a').first();
+  const firstRestaurantName = await I.grabTextFrom(firstRestaurant);
   I.click(firstRestaurant);
 
   I.seeElement('#likeButton');
@@ -28,19 +27,20 @@ Scenario('liking one restaurant', async ({ I }) => {
 
   I.amOnPage('/#/like');
   I.seeElement('.restaurant-item');
-  const likedRestaurantTitle = await I.grabTextFrom('.restaurant__name');
+  const likedRestaurantName = await I.grabTextFrom('.restaurant_name');
 
-  assert.strictEqual(firstRestaurantTitle, likedRestaurantTitle);
+  assert.strictEqual(firstRestaurantName, likedRestaurantName);
 });
 
-Scenario('unlike restaurant', async ({ I }) => {
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
+Scenario('Unliking restaurant', async ({ I }) => {
+  I.dontSeeElement('.restaurant-item');
 
   I.amOnPage('/');
-  pause();
-  I.seeElement('.list__item a');
-  const firstRestaurant = locate('.restaurant__name').first();
-  const firstRestaurantTitle = await I.grabTextFrom(firstRestaurant);
+
+  I.seeElement('.restaurant_name a');
+
+  const firstRestaurant = locate('.restaurant_name a').first();
+  const firstRestaurantName = await I.grabTextFrom(firstRestaurant);
   I.click(firstRestaurant);
 
   I.seeElement('#likeButton');
@@ -48,14 +48,12 @@ Scenario('unlike restaurant', async ({ I }) => {
 
   I.amOnPage('/#/like');
   I.seeElement('.restaurant-item');
-  const likedRestaurantTitle = await I.grabTextFrom('.restaurant__name');
-  I.click(locate('.restaurant__name').first());
+
+  const likedRestaurantName = await I.grabTextFrom('.restaurant_name');
+  assert.strictEqual(firstRestaurantName, likedRestaurantName);
+  I.click(firstRestaurantName);
+
   I.seeElement('#likeButton');
   I.click('#likeButton');
-
   I.amOnPage('/#/like');
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurants');
-  pause();
-
-  assert.strictEqual(firstRestaurantTitle, likedRestaurantTitle);
 });
