@@ -49,6 +49,10 @@
   footer #footerTools {
     flex-direction: row;
   }
+  .jumbotron {
+    min-height: 300px;
+    background-image: url(../public/images/hero-image_3-large-small-small.jpg);
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -68,6 +72,7 @@
 
   .jumbotron {
     min-height: 420px;
+    background-image: url(../public/images/hero-image_3-large-large-small.jpg);
   }
 }
 
@@ -78,6 +83,7 @@
 
   .jumbotron {
     min-height: 450px;
+    background-image: url(../public/images/hero-image_3-large-large-large.jpg);
   }
 }
 
@@ -88,5 +94,6 @@
 
   .jumbotron {
     min-height: 480px;
+    background-image: url(../public/images/hero-image_3-large-large-large.jpg);
   }
 }
